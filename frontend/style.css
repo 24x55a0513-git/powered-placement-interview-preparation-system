@@ -1,0 +1,174 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #eef2f7;
+    color: #1f2937;
+}
+
+/* Header */
+
+header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
+    padding: 35px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+header p {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* Main container */
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
+
+/* Cards */
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1e3a8a;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+.card p {
+    line-height: 1.7;
+}
+
+/* Student Profile */
+
+#studentName,
+#studentEmail,
+#studentBranch,
+#studentCgpa,
+#graduationYear {
+    font-weight: bold;
+    color: #2563eb;
+}
+
+/* Weak skills */
+
+#weakSkills {
+    padding-left: 20px;
+}
+
+#weakSkills li {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Preparation plan */
+
+#preparationPlan .card {
+    background: #f8fafc;
+    border-left: 5px solid #2563eb;
+    box-shadow: none;
+}
+
+#preparationPlan .card h3 {
+    margin-top: 0;
+}
+
+/* Progress */
+
+#progressAnalysis > div {
+    background: #f8fafc;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #16a34a;
+}
+
+#progressAnalysis h3 {
+    margin-top: 0;
+    color: #15803d;
+}
+
+/* Jobs */
+
+#jobMatches > div {
+    background: #f8fafc;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #7c3aed;
+}
+
+#jobMatches h3 {
+    margin-top: 0;
+    color: #6d28d9;
+}
+
+/* Horizontal lines */
+
+hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 15px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
+    /* Top dashboard row */
+
+.top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.top-row .card {
+    margin-bottom: 0;
+}
+
+/* Mobile layout */
+
+@media (max-width: 700px) {
+
+    .top-row {
+        grid-template-columns: 1fr;
+    }
+
+}

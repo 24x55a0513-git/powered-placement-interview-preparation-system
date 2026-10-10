@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Placement AI System</title>
+
+    <style>
+
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #080b14;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    box-sizing: border-box;
+
+    background: #0d1120;
+    border-right: 1px solid #20263a;
+
+    padding: 28px 18px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 45px;
+
+    background: linear-gradient(
+        90deg,
+        #8b5cf6,
+        #22d3ee
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    padding: 14px 16px;
+    border-radius: 12px;
+
+    color: #8e97ad;
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    background: linear-gradient(
+        90deg,
+        rgba(139, 92, 246, 0.20),
+        rgba(34, 211, 238, 0.08)
+    );
+
+    color: white;
+}
+
+.menu-item:hover {
+    transform: translateX(5px);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 35px;
+    box-sizing: border-box;
+    min-width: 0;
+    position: relative;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.welcome h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #8992a8;
+}
+
+.profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.profile-wrapper {
+    position: relative;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 230px;
+    background: #171b3a;
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.profile-menu.show {
+    display: block;
+}
+
+.profile-menu-header {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 6px;
+}
+
+.profile-menu-header strong {
+    display: block;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.profile-menu-header small {
+    color: #8e97aa;
+}
+
+.profile-option {
+    padding: 12px;
+    border-radius: 9px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.profile-option:hover {
+    background: rgba(139, 92, 246, 0.25);
+}
+
+.logout-option {
+    color: #ff8c8c;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 5px;
+}
+.avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #8b5cf6,
+        #06b6d4
+    );
+
+    font-weight: bold;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stat-card {
+    background: linear-gradient(
+        145deg,
+        #111728,
+        #0d1120
+ min-width: 0;
+    box-sizing: border-box;
+    );
+
+    border: 1px solid #20273b;
+    border-radius: 18px;
+
+    padding: 22px;
+
+    transition: 0.3s;
+
+    animation: fadeUp 0.6s ease both;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #6d5dfc;
+
+    box-shadow:
+        0 0 25px rgba(34, 211, 238, 0.12);
+}
+
+.stat-title {
+    color: #8d96aa;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.stat-sub {
+    color: #647087;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* =========================
+   DASHBOARD GRID
+========================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr;
+
+    gap: 20px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+    background: #0d1220;
+
+    border: 1px solid #20273b;
+    border-radius: 18px;
+
+    padding: 25px;
+    margin-bottom: 20px;
+
+    animation: fadeUp 0.6s ease both;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.card:hover {
+    border-color: rgba(139, 92, 246, 0.6);
+
+    box-shadow:
+        0 0 25px rgba(139, 92, 246, 0.12);
+
+    transform: translateY(-2px);
+}
+
+.card h2 {
+    font-size: 19px;
+    margin-bottom: 22px;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-info {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 18px;
+}
+
+.info-box {
+    background: #111728;
+
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.info-label {
+    color: #7f899f;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.info-value {
+    font-weight: 600;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* =========================
+   SKILLS
+========================= */
+
+.skill {
+    margin-bottom: 18px;
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+}
+
+.skill-name {
+    font-size: 14px;
+}
+
+.skill-score {
+    color: #a5adbf;
+    font-size: 13px;
+}
+
+.progress-bar {
+    height: 8px;
+
+    background: #202638;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #8b5cf6,
+        #22d3ee
+    );
+
+    animation: skillFill 1.2s ease-out;
+}
+
+@keyframes skillFill {
+
+    from {
+        width: 0;
+    }
+
+}
+
+/* =========================
+   WEAK SKILLS
+========================= */
+
+.weak-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.weak {
+    padding: 9px 14px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(239, 68, 68, 0.12);
+
+    border:
+        1px solid
+        rgba(239, 68, 68, 0.25);
+
+    color: #ff8c8c;
+
+    font-size: 13px;
+
+    transition: 0.25s ease;
+}
+
+.weak:hover {
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 15px
+        rgba(239, 68, 68, 0.18);
+}
+
+/* =========================
+   PREPARATION
+========================= */
+
+.plan-item {
+    padding: 18px;
+
+    border-radius: 13px;
+
+    background: #111728;
+
+    border-left:
+        3px solid #8b5cf6;
+
+    margin-bottom: 12px;
+
+    transition: 0.25s ease;
+}
+
+.plan-item:hover {
+    transform: translateX(5px);
+
+    background: #151c30;
+}
+
+.plan-item h3 {
+    margin-bottom: 7px;
+}
+
+.plan-item p {
+    color: #8e97aa;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   JOBS
+========================= */
+
+.job-card {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 18px;
+
+    background: #111728;
+
+    border:
+        1px solid #20273b;
+
+    border-radius: 14px;
+
+    margin-bottom: 12px;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.job-card:hover {
+    transform: translateX(5px);
+
+    border-color:
+        rgba(34, 211, 238, 0.5);
+
+    box-shadow:
+        0 0 20px
+        rgba(34, 211, 238, 0.08);
+}
+
+.job-title {
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+.company {
+    color: #8791a7;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+.job-details {
+    color: #9da7ba;
+
+    font-size: 13px;
+}
+
+.job-right {
+    text-align: right;
+
+    min-width: 90px;
+}
+
+.match {
+    color: #55e6a5;
+
+    font-weight: 700;
+
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+/* =========================
+   APPLY BUTTON
+========================= */
+
+.apply-btn {
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #22d3ee
+        );
+
+    color: white;
+
+    padding: 8px 16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.apply-btn:hover {
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 15px
+        rgba(34, 211, 238, 0.3);
+}
+
+.apply-btn:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.6;
+}
+/* =========================
+   PLACEMENT READINESS
+========================= */
+
+.readiness {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+/* OUTER CIRCLE */
+
+.circle {
+    width: 150px;
+    height: 150px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    /*
+       Default value.
+       JavaScript will change this
+       dynamically according to average.
+    */
+
+    background:
+        conic-gradient(
+            from -90deg,
+            #8b5cf6 0%,
+            #22d3ee 66%,
+            #22283a 66%,
+            #22283a 100%
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(139, 92, 246, 0.35);
+}
+
+/* INNER CIRCLE */
+
+.circle::before {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 112px;
+    height: 112px;
+
+    border-radius: 50%;
+
+    background: #101936;
+
+    z-index: 1;
+}
+
+/* PERCENTAGE TEXT */
+
+#readinessValue {
+    position: relative;
+
+    z-index: 2;
+
+    color: white;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+/* DESCRIPTION */
+
+.readiness-text {
+    max-width: 280px;
+}
+
+.readiness-text p {
+    color: #aeb9d6;
+
+    line-height: 1.6;
+
+    font-size: 15px;
+}
+
+/* =========================
+   READINESS RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .readiness {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .readiness-text {
+        max-width: 100%;
+    }
+
+}
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 1000px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+        padding: 25px;
+    }
+
+}
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .profile-mini {
+        display: none;
+    }
+
+    .job-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .job-right {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        text-align: left;
+    }
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 450px) {
+
+    .main {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .circle {
+        width: 135px;
+        height: 135px;
+    }
+
+    .circle::before {
+        width: 100px;
+        height: 100px;
+    }
+
+    #readinessValue {
+        font-size: 25px;
+    }
+
+}
+.ai-full-width {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+  </style>
+
+</head>
+
+<body style="overflow:hidden;">
+
+<div id="loginScreen" style="
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#0f1020;
+">
+    <div style="
+        width:360px;
+        padding:35px;
+        border-radius:20px;
+        background:#17182b;
+        border:1px solid rgba(139,92,246,0.4);
+    ">
+
+        <h1 style="
+            color:white;
+            text-align:center;
+            margin-bottom:10px;
+        ">
+            Placement AI System
+        </h1>
+
+        <p style="
+            color:#8e97aa;
+            text-align:center;
+            margin-bottom:25px;
+        ">
+            Student Login
+        </p>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Email"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:12px;
+                margin-bottom:15px;
+                border-radius:8px;
+                border:1px solid #444;
+                background:#22243a;
+                color:white;
+            "
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            style="
+                width:100%;
+                box-sizing:border-box;
+                padding:12px;
+                margin-bottom:20px;
+                border-radius:8px;
+                border:1px solid #444;
+                background:#22243a;
+                color:white;
+            "
+        >
+
+        <button
+            onclick="loginStudent()"
+            style="
+                width:100%;
+                padding:12px;
+                border:none;
+                border-radius:8px;
+                background:#8b5cf6;
+                color:white;
+                font-size:16px;
+                cursor:pointer;
+            "
+        >
+            Login
+        </button>
+
+        <p id="loginError" style="
+            color:#ff8c8c;
+            text-align:center;
+            margin-top:15px;
+        "></p>
+
+    </div>
+
+</div>
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        ◈ Placement AI
+    </div>
+
+    <div class="menu">
+
+    <div class="menu-item active" onclick="showSection('dashboard')">
+        ◉ Dashboard
+    </div>
+
+    <div class="menu-item" onclick="showSection('profile')">
+        👤 Profile
+    </div>
+
+    <div class="menu-item" onclick="showSection('skills')">
+        ⚡ Skills
+    </div>
+
+    <div class="menu-item" onclick="showSection('jobs')">
+        💼 Jobs
+    </div>
+
+    <div class="menu-item" onclick="showSection('progress')">
+        📈 Progress
+    </div>
+
+    <div class="menu-item" onclick="showSection('settings')">
+        ⚙ Settings
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- TOP BAR -->
+
+    <!-- TOP BAR -->
+<div class="topbar">
+
+    <div class="welcome">
+        <h1 id="welcomeTitle">Good morning 👋</h1>
+        <p>Here's your placement readiness overview.</p>
+    </div>
+
+    <div class="profile-wrapper" style="position:relative;">
+
+        <div class="profile-mini"
+             onclick="toggleProfileMenu()"
+             style="cursor:pointer;">
+
+            <div class="avatar" id="topAvatar">M</div>
+            <span id="topName">Manoj Kumar</span>
+            <span style="margin-left:8px;">▼</span>
+
+        </div>
+
+        <div id="profileMenu"
+             style="display:none;
+                    position:absolute;
+                    right:0;
+                    top:60px;
+                    width:200px;
+                    background:#151827;
+                    border:1px solid #30364a;
+                    border-radius:12px;
+                    padding:10px;
+                    z-index:10000;">
+
+            <div onclick="showStudentProfile()"
+                 style="padding:12px;cursor:pointer;">
+                👤 View Profile
+            </div>
+
+            <div onclick="switchStudent()"
+                 style="padding:12px;cursor:pointer;">
+                🔄 Switch Account
+            </div>
+
+            <div onclick="showLoginScreen()"
+                 style="padding:12px;cursor:pointer;">
+                🔐 Sign In
+            </div>
+
+            <div onclick="logoutStudent()"
+                 style="padding:12px;cursor:pointer;color:#ff6b6b;">
+                🚪 Log Out
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- STAT CARDS -->
+
+
+
+
+    <!-- STAT CARDS -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Overall Score
+            </div>
+
+            <div class="stat-value" id="averageScore">
+                --
+            </div>
+
+            <div class="stat-sub">
+                Performance average
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Weak Skills
+            </div>
+
+            <div class="stat-value" id="weakCount">
+                --
+            </div>
+
+            <div class="stat-sub">
+                Skills to improve
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Job Matches
+            </div>
+
+            <div class="stat-value" id="jobCount">
+                --
+            </div>
+
+            <div class="stat-sub">
+                Matching opportunities
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Graduation
+            </div>
+
+            <div class="stat-value" id="graduation">
+                --
+            </div>
+
+            <div class="stat-sub">
+                Expected year
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DASHBOARD GRID -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- LEFT -->
+
+        <div>
+
+
+            <!-- PROFILE -->
+
+            <div class="card">
+
+                <h2>Student Profile</h2>
+<div style="margin-bottom:20px;">
+    <div class="info-label">STUDENT NAME</div>
+    <div class="info-value" id="studentName">Loading...</div>
+</div>
+                    <div style="margin-bottom:20px;">
+</div>
+
+                <div class="profile-info">
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            NAME
+                        </div>
+
+                        <div class="info-value"
+                             id="studentName">
+                            Loading...
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            EMAIL
+                        </div>
+
+                        <div class="info-value"
+                             id="email">
+                            Loading...
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            BRANCH
+                        </div>
+
+                        <div class="info-value"
+                             id="branch">
+                            Loading...
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            CGPA
+                        </div>
+
+                        <div class="info-value"
+                             id="cgpa">
+                            Loading...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="card">
+
+                <h2>Skill Performance</h2>
+
+                <div id="skillsContainer">
+                    Loading...
+                </div>
+
+            </div>
+
+
+            <!-- PREPARATION -->
+
+            <div class="card">
+
+                <h2>Personalized Preparation</h2>
+                
+                <div id="preparationContainer">
+                    Loading...
+                </div>
+
+            </div>
+
+
+        </div>
+<div class="card ai-full-width">
+
+
+
+    <h2>AI Interview Preparation</h2>
+
+    <p style="color:#8e97aa; margin-bottom:20px;">
+        Personalized interview questions based on your weak skills.
+    </p>
+
+    <div id="aiQuestions">
+        Loading AI interview questions...
+    </div>
+    </div>
+        <!-- RIGHT -->
+
+        <div>
+
+
+            <!-- READINESS -->
+
+            <div class="card">
+
+                <h2>Placement Readiness</h2>
+
+                <div class="readiness">
+
+                    <div class="circle" id="readinessCircle">
+    <span id="readinessValue">66%</span>
+</div>
+
+                    <div class="readiness-text">
+
+                        <p>
+                            Your readiness is based on
+                            your current technical
+                            performance.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEAK SKILLS -->
+
+            <div class="card">
+
+                <h2>Skills Needing Attention</h2>
+
+                <div class="weak-list"
+                     id="weakSkills">
+                    Loading...
+                </div>
+          
+            </div>
+
+
+            <!-- JOBS -->
+
+            <div class="card">
+
+                <h2>Recommended Jobs</h2>
+
+                <div id="jobsContainer">
+                    Loading...
+                </div>
+              <!-- AI INTERVIEW PREPARATION -->
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+window.toggleProfileMenu = function () {
+    const menu = document.getElementById("profileMenu");
+
+    if (menu) {
+        menu.style.display =
+            menu.style.display === "block" ? "none" : "block";
+    }
+};
+let currentStudentId = 1;
+
+
+const API_URL = () =>
+    `http://localhost:8080/api/dashboard/${currentStudentId}`;
+
+
+/* =========================
+   LOAD DASHBOARD
+========================= */
+
+async function loadDashboard() {
+
+    try {
+
+        const response =
+            await fetch(API_URL());
+
+        if (!response.ok) {
+            throw new Error("Failed to load dashboard");
+        }
+
+        const data =
+            await response.json();
+
+
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        document.getElementById("studentName")
+            .textContent =
+            data.studentName || "Manoj Kumar";
+        document.getElementById("welcomeTitle")
+    .textContent =
+    "Good morning, " +
+    (data.studentName || "") +
+    " 👋";
+
+        document.getElementById("topName")
+            .textContent =
+            data.studentName || "Manoj Kumar";
+document.getElementById("topAvatar")
+    .textContent =
+    (data.studentName || "Student").charAt(0).toUpperCase();
+        document.getElementById("welcomeTitle")
+    .textContent =
+    "Good morning, " +
+    (data.studentName || "") +
+    " 👋";
+
+        document.getElementById("email")
+            .textContent =
+            data.email || "-";
+
+        document.getElementById("branch")
+            .textContent =
+            data.branch || "-";
+
+        document.getElementById("cgpa")
+            .textContent =
+            data.cgpa || "-";
+
+        document.getElementById("graduation")
+            .textContent =
+            data.graduationYear || "-";
+
+
+        /* =========================
+           PERFORMANCE
+        ========================= */
+
+        const performance =
+            data.performanceAnalysis;
+
+
+        if (performance) {
+
+            const average =
+                performance.average_score || 0;
+
+
+            /* OVERALL SCORE */
+
+            document.getElementById(
+                "averageScore"
+            ).textContent =
+                average + "%";
+
+
+            /* WEAK SKILLS */
+
+            const weakSkills =
+                performance.weak_skills || [];
+
+            document.getElementById(
+                "weakCount"
+            ).textContent =
+                weakSkills.length;
+
+
+            const weakContainer =
+                document.getElementById(
+                    "weakSkills"
+                );
+
+            weakContainer.innerHTML = "";
+
+
+            if (weakSkills.length === 0) {
+
+                weakContainer.innerHTML =
+                    "<p>No weak skills found.</p>";
+
+            } else {
+
+                weakSkills.forEach(skill => {
+
+                    const element =
+                        document.createElement("div");
+
+                    element.className =
+                        "weak";
+
+                    element.textContent =
+                        skill;
+
+                    weakContainer.appendChild(
+                        element
+                    );
+
+                });
+
+            }
+
+
+            /* =========================
+               SKILL PERFORMANCE
+            ========================= */
+
+            const skillsContainer =
+                document.getElementById(
+                    "skillsContainer"
+                );
+
+            skillsContainer.innerHTML = "";
+
+
+            if (performance.performance) {
+
+                performance.performance.forEach(
+                    skill => {
+
+                        const skillBox =
+                            document.createElement(
+                                "div"
+                            );
+
+                        skillBox.className =
+                            "skill";
+
+
+                        skillBox.innerHTML = `
+
+                            <div class="skill-header">
+
+                                <span class="skill-name">
+                                    ${skill.Skill}
+                                </span>
+
+                                <span class="skill-score">
+                                    ${skill.Score}%
+                                </span>
+
+                            </div>
+
+
+                            <div class="progress-bar">
+
+                                <div
+                                    class="progress-fill"
+                                    style="width:${skill.Score}%">
+                                </div>
+
+                            </div>
+
+                        `;
+
+
+                        skillsContainer.appendChild(
+                            skillBox
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =========================
+               PREPARATION PLAN
+            ========================= */
+
+            const preparation =
+                performance.preparation_plan || [];
+
+
+            const preparationContainer =
+                document.getElementById(
+                    "preparationContainer"
+                );
+
+            preparationContainer.innerHTML = "";
+
+
+            if (preparation.length === 0) {
+
+                preparationContainer.innerHTML =
+                    "<p>No preparation plan available.</p>";
+
+            } else {
+
+                preparation.forEach(item => {
+
+                    const box =
+                        document.createElement("div");
+
+                    box.className =
+                        "plan-item";
+
+
+                    box.innerHTML = `
+
+                        <h3>
+                            ${item.skill}
+                        </h3>
+
+                        <p>
+                            ${item.recommendation}
+                        </p>
+
+                    `;
+
+
+                    preparationContainer.appendChild(
+                        box
+                    );
+
+                });
+
+            }
+
+
+            /* =========================
+               READINESS
+            ========================= */
+
+            document.getElementById(
+                "readinessValue"
+            ).textContent =
+                Math.round(average) + "%";
+
+
+            document.getElementById(
+                "readinessCircle"
+            ).style.background =
+                `conic-gradient(
+                    #8b5cf6 ${average}%,
+                    #22283a ${average}% 100%
+                )`;
+
+        }
+
+
+        /* =========================
+           JOBS
+        ========================= */
+
+        const jobs =
+            data.jobMatches || [];
+
+
+        document.getElementById(
+            "jobCount"
+        ).textContent =
+            jobs.length;
+
+
+        const jobsContainer =
+            document.getElementById(
+                "jobsContainer"
+            );
+
+        jobsContainer.innerHTML = "";
+
+
+        if (jobs.length === 0) {
+
+            jobsContainer.innerHTML =
+                "<p>No matching jobs found.</p>";
+
+        } else {
+
+            jobs.forEach(job => {
+
+                const jobBox =
+                    document.createElement("div");
+
+                jobBox.className =
+                    "job-card";
+
+
+                jobBox.innerHTML = `
+
+                    <div>
+
+                        <div class="job-title">
+                            ${job.jobRole}
+                        </div>
+
+                        <div class="company">
+                            ${job.companyName}
+                        </div>
+
+                        <div class="job-details">
+                            📍 ${job.location || "Location not available"}
+                            &nbsp; • &nbsp;
+                            💰 ${job.packageLpa || "Package not available"} LPA
+                        </div>
+
+                    </div>
+
+
+                    <div class="job-right">
+
+                        <div class="match">
+                            ${Number(job.matchScore).toFixed(0)}%
+                        </div>
+
+                        <button
+                            class="apply-btn"
+                            data-job-id="${job.jobId}">
+                            Apply
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                jobsContainer.appendChild(
+                    jobBox
+                );
+
+            });
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+    }
+
+}
+/* =========================
+   AI INTERVIEW QUESTIONS
+========================= */
+
+async function loadAIQuestions() {
+
+    const container =
+        document.getElementById("aiQuestions");
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = `
+        <div style="
+            padding:20px;
+            color:#8e97aa;
+            text-align:center;
+        ">
+            Loading interview questions...
+        </div>
+    `;
+
+    try {
+
+        /* Get weak skills from dashboard */
+
+        const dashboardResponse =
+            await fetch(`http://localhost:8080/api/dashboard/${currentStudentId}`
+            );
+
+        if (!dashboardResponse.ok) {
+            throw new Error(
+                "Dashboard request failed"
+            );
+        }
+
+        const dashboardData =
+            await dashboardResponse.json();
+
+        const weakSkills =
+            dashboardData.performanceAnalysis?.weak_skills || [];
+
+
+        /* No weak skills */
+
+        if (weakSkills.length === 0) {
+
+            container.innerHTML = `
+                <p style="color:#8e97aa;">
+                    No weak skills found.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        /* Get random questions */
+
+        const response =
+            await fetch(
+                "http://localhost:8080/api/ai/questions",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(weakSkills)
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Question request failed: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const questions =
+            data.ai_interview_questions || [];
+
+
+        container.innerHTML = "";
+
+
+        /* Display questions */
+
+        questions.forEach(
+            (item, index) => {
+
+                const card =
+                    document.createElement("div");
+
+                card.style.background =
+                    "rgba(255,255,255,0.04)";
+
+                card.style.border =
+                    "1px solid rgba(139,92,246,0.35)";
+
+                card.style.borderRadius =
+                    "16px";
+
+                card.style.padding =
+                    "20px";
+
+                card.style.marginBottom =
+                    "18px";
+
+                card.style.lineHeight =
+                    "1.7";
+
+
+                card.innerHTML = `
+
+                    <h3 style="
+                        margin-bottom:15px;
+                        color:#ffffff;
+                    ">
+                        Question ${index + 1}
+                    </h3>
+
+                    <p style="
+                        color:#ffffff;
+                        font-size:16px;
+                        margin-bottom:12px;
+                    ">
+                        <strong>
+                            ${item.question}
+                        </strong>
+                    </p>
+
+                    <p style="
+                        color:#a78bfa;
+                    ">
+                        <strong>
+                            Skill:
+                        </strong>
+                        ${item.skill}
+                    </p>
+
+                    <p style="
+                        color:#8e97aa;
+                    ">
+                        <strong>
+                            Difficulty:
+                        </strong>
+                        ${item.difficulty}
+                    </p>
+
+                    <p style="
+                        color:#ffffff;
+                        line-height:1.6;
+                    ">
+                        <strong>
+                            Explanation:
+                        </strong>
+                        <br>
+                        ${item.explanation}
+                    </p>
+
+                    <p style="
+                        color:#ffffff;
+                        line-height:1.6;
+                    ">
+                        <strong>
+                            Key Points:
+                        </strong>
+                        <br>
+                        • ${item.key_points[0]}
+                        <br>
+                        • ${item.key_points[1]}
+                    </p>
+
+                `;
+
+
+                container.appendChild(card);
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "AI Questions Error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <p style="color:#ff8c8c;">
+                Unable to load interview questions.
+            </p>
+        `;
+
+    }
+
+}
+/* =========================
+   SIDEBAR / SECTION NAVIGATION
+========================= */
+
+function showSection(section) {
+
+    const items =
+        document.querySelectorAll(
+            ".menu-item"
+        );
+
+
+    items.forEach(item => {
+
+        item.classList.remove(
+            "active"
+        );
+
+    });
+
+
+    if (event && event.currentTarget) {
+
+        event.currentTarget.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (section === "dashboard") {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    else if (section === "profile") {
+
+        const element =
+            document.querySelector(
+                ".profile-info"
+            );
+
+        if (element) {
+
+            element.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+
+
+    else if (section === "skills") {
+
+        const element =
+            document.getElementById(
+                "skillsContainer"
+            );
+
+        if (element) {
+
+            element.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+
+
+    else if (section === "jobs") {
+
+        const element =
+            document.getElementById(
+                "jobsContainer"
+            );
+
+        if (element) {
+
+            element.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+
+
+    else if (section === "progress") {
+
+        const element =
+            document.getElementById(
+                "readinessCircle"
+            );
+
+        if (element) {
+
+            element.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+
+
+    else if (section === "settings") {
+
+        alert(
+            "Settings section will be added soon."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   APPLY BUTTON
+========================= */
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target.classList.contains(
+                "apply-btn"
+            )
+        ) {
+
+            const jobId =
+                event.target.dataset.jobId;
+
+
+            fetch(
+                "http://localhost:8080/api/applications",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        student: {
+                           studentId: currentStudentId
+                        },
+
+                        job: {
+                            jobId:
+                                Number(jobId)
+                        },
+
+                        status:
+                            "Applied",
+
+                        appliedDate:
+                            new Date()
+                                .toISOString()
+                                .split("T")[0]
+
+                    })
+
+                }
+            )
+
+            .then(response =>
+                response.json()
+            )
+
+            .then(data => {
+
+                event.target.textContent =
+                    "Applied ✓";
+
+                event.target.disabled =
+                    true;
+
+                event.target.style.opacity =
+                    "0.6";
+
+                event.target.style.cursor =
+                    "not-allowed";
+
+
+                alert(
+                    "Application submitted successfully!"
+                );
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    error
+                );
+
+                alert(
+                    "Failed to submit application."
+                );
+
+            });
+
+        }
+
+    }
+);
+
+
+// View Student Profile
+window.showStudentProfile = function () {
+    document.getElementById("profileMenu").style.display = "none";
+
+    const profile = document.querySelector("h2");
+    if (profile) {
+        profile.scrollIntoView({ behavior: "smooth" });
+    }
+};
+
+// Switch Account
+window.switchStudent = function () {
+    document.getElementById("profileMenu").style.display = "none";
+
+    const newEmail = currentStudentId === 1
+        ? "rahul@example.com"
+        : "manoj@example.com";
+
+    const newPassword = currentStudentId === 1
+        ? "rahul123"
+        : "manoj123";
+
+    document.getElementById("loginEmail").value = newEmail;
+    document.getElementById("loginPassword").value = newPassword;
+
+    document.getElementById("loginScreen").style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    loginStudent();
+};
+
+// Sign In
+window.showLoginScreen = function () {
+    document.getElementById("profileMenu").style.display = "none";
+    document.getElementById("loginScreen").style.display = "flex";
+};
+
+// Log Out
+window.logoutStudent = function () {
+    document.getElementById("profileMenu").style.display = "none";
+    currentStudentId = 1;
+    document.getElementById("loginScreen").style.display = "flex";
+    document.body.style.overflow = "hidden";
+};
+
+async function loginStudent() {
+
+    const email =
+        document.getElementById("loginEmail").value;
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const error =
+        document.getElementById("loginError");
+
+    error.textContent = "";
+
+    if (!email || !password) {
+        error.textContent =
+            "Please enter email and password.";
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                "http://localhost:8080/api/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                }
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Invalid email or password"
+            );
+        }
+
+        const student =
+            await response.json();
+
+        currentStudentId =
+            student.studentId;
+
+        document.getElementById(
+    "loginScreen"
+).style.display = "none";
+
+document.body.style.overflow = "auto";
+ 
+
+loadDashboard();
+loadAIQuestions();
+
+    } catch (err) {
+
+        error.textContent =
+            "Invalid email or password.";
+
+    }
+}
+/* =========================
+   START APPLICATION
+========================= */
+
+
+
+</script>
+
+
+</body>
+</html>
