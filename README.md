@@ -56,16 +56,16 @@ A full-stack application designed to help students manage placement opportunitie
 ### 2. Dashboard
 ![Dashboard](screenshots/pas_2.jpeg)
 
-### 3. Job Listings
+### 3. Skill Performance
 ![Job Listings](screenshots/pas_3.jpeg)
 
-### 4. Job Matching
+### 4. Interview Preparation for weak Skills
 ![Job Matching](screenshots/pas_4.jpeg)
 
-### 5. Skill Analysis
+### 5. Interview Preparation for weak Skills
 ![Skill Analysis](screenshots/pas_5.jpeg)
 
-### 6. Interview Preparation
+### 6. Placement Readiness & Recommended Jobs
 ![Interview Preparation](screenshots/pas_6.jpeg)
 
 ## Purpose
