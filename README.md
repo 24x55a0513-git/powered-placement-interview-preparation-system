@@ -1,25 +1,30 @@
 # Powered Placement & Interview Preparation System
 
-A full-stack application designed to help students manage placement opportunities, check job eligibility, identify weak skills, and follow personalized interview preparation plans.
+A full-stack application designed to help students manage placement opportunities, identify skill gaps, and follow personalized interview preparation plans.
 
-## Features
+## 🚀 Features
 
-- Student dashboard
-- Student profile and skill management
-- Job listings and eligibility matching
-- Placement management
-- Skill gap analysis
-- Personalized preparation plans
-- Interview preparation question bank
-- Progress analysis
+- **Student Dashboard** – View student information and placement statistics.
+- **Student Profile Management** – Manage student profiles and technical skills.
+- **Job Listings** – View available job opportunities.
+- **Job Eligibility Matching** – Match student skills against job requirements.
+- **Skill Gap Analysis** – Identify weak technical skills using performance data.
+- **Personalized Preparation Plans** – Generate preparation plans based on identified skill gaps.
+- **Interview Preparation** – Access a predefined bank of interview questions.
+- **Progress Analysis** – Analyze student preparation progress.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-### Backend
+### Frontend
+- HTML
+- CSS
+- JavaScript
+
+### Java Backend
 - Java
 - Spring Boot
-- MySQL
 - Spring Data JPA
+- REST APIs
 
 ### Python Service
 - Python
@@ -27,47 +32,81 @@ A full-stack application designed to help students manage placement opportunitie
 - Pandas
 - NumPy
 
-### Frontend
-- HTML
-- CSS
-- JavaScript
+### Database
+- MySQL
 
-## Project Structure
+### Tools
+- IntelliJ IDEA
+- Visual Studio Code
+- MySQL Workbench
+- Postman
+- Git and GitHub
 
-- `frontend/` — User interface
-- `backend/` — Java Spring Boot application
-- `python-service/` — Python FastAPI service
-- `database/` — Database schema
+## 🏗️ Project Architecture
 
-## Running the Project
+The system consists of three main components:
 
-1. Install Java, Python, and MySQL.
-2. Configure the MySQL database.
-3. Run the Spring Boot backend.
-4. Install the Python dependencies from `python-service/requirements.txt`.
-5. Start the FastAPI service.
-6. Open the frontend in a browser.
+1. **Frontend:** Provides the user interface for students.
+2. **Java Backend:** Handles student data, job listings, eligibility matching, and database operations.
+3. **Python Service:** Performs skill gap analysis and generates personalized preparation plans.
 
-## Screenshots
+The Java backend integrates with the Python service through REST API calls.
+
+## 📸 Screenshots
 
 ### 1. Login Page
-![Login Page](screenshots/pas_1.jpeg)
+![Login Page](screenshots/pas_1.png)
 
 ### 2. Dashboard
-![Dashboard](screenshots/pas_2.jpeg)
+![Dashboard](screenshots/pas_2.png)
 
-### 3. Skill Performance
-![Job Listings](screenshots/pas_3.jpeg)
+### 3. Job Listings
+![Job Listings](screenshots/pas_3.png)
 
-### 4. Interview Preparation for weak Skills
-![Job Matching](screenshots/pas_4.jpeg)
+### 4. Job Matching
+![Job Matching](screenshots/pas_4.png)
 
-### 5. Interview Preparation for weak Skills
-![Skill Analysis](screenshots/pas_5.jpeg)
+### 5. Skill Gap Analysis
+![Skill Gap Analysis](screenshots/pas_5.png)
 
-### 6. Placement Readiness & Recommended Jobs
-![Interview Preparation](screenshots/pas_6.jpeg)
+### 6. Interview Preparation
+![Interview Preparation](screenshots/pas_6.png)
 
-## Purpose
+## 📂 Project Structure
 
-This project demonstrates full-stack development, REST API integration, database management, job matching, and data-driven skill analysis.
+```text
+powered-placement-interview-preparation-system/
+├── frontend/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+├── backend/
+│   └── Spring Boot application
+├── python-service/
+│   ├── main.py
+│   ├── question_bank.py
+│   └── requirements.txt
+├── database/
+│   └── schema.sql
+├── screenshots/
+│   ├── pas_1.png
+│   ├── pas_2.png
+│   ├── pas_3.png
+│   ├── pas_4.png
+│   ├── pas_5.png
+│   └── pas_6.png
+├── .gitignore
+└── README.md
+
+## Project Objective
+
+The objective of this project is to simplify placement management by helping students identify suitable job opportunities, analyze skill gaps, and follow personalized interview preparation plans.
+
+## Author
+
+Developed as an academic project to demonstrate full-stack development, database integration, REST API communication, job matching, and data-driven skill analysis.
+
+## Repository
+
+[Powered Placement & Interview Preparation System on GitHub](https://github.com/24x55a0513-git/powered-placement-interview-preparation-system)
+
