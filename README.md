@@ -48,6 +48,26 @@ A full-stack application designed to help students manage placement opportunitie
 5. Start the FastAPI service.
 6. Open the frontend in a browser.
 
+## Screenshots
+
+### 1. Login Page
+![Login Page](screenshots/pas_1.png)
+
+### 2. Dashboard
+![Dashboard](screenshots/pas_2.png)
+
+### 3. Job Listings
+![Job Listings](screenshots/pas_3.png)
+
+### 4. Job Matching
+![Job Matching](screenshots/pas_4.png)
+
+### 5. Skill Analysis
+![Skill Analysis](screenshots/pas_5.png)
+
+### 6. Interview Preparation
+![Interview Preparation](screenshots/pas_6.png)
+
 ## Purpose
 
 This project demonstrates full-stack development, REST API integration, database management, job matching, and data-driven skill analysis.
