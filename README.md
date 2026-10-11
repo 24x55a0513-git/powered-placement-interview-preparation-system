@@ -55,22 +55,22 @@ The Java backend integrates with the Python service through REST API calls.
 ## 📸 Screenshots
 
 ### 1. Login Page
-![Login Page](screenshots/pas_1.png)
+![Login Page](screenshots/pas_1.jpeg)
 
 ### 2. Dashboard
-![Dashboard](screenshots/pas_2.png)
+![Dashboard](screenshots/pas_2.jpeg)
 
 ### 3. Job Listings
-![Job Listings](screenshots/pas_3.png)
+![Job Listings](screenshots/pas_3.jpeg)
 
 ### 4. Job Matching
-![Job Matching](screenshots/pas_4.png)
+![Job Matching](screenshots/pas_4.jpeg)
 
 ### 5. Skill Gap Analysis
-![Skill Gap Analysis](screenshots/pas_5.png)
+![Skill Gap Analysis](screenshots/pas_5.jpeg)
 
 ### 6. Interview Preparation
-![Interview Preparation](screenshots/pas_6.png)
+![Interview Preparation](screenshots/pas_6.jpeg)
 
 ## 📂 Project Structure
 
@@ -89,12 +89,12 @@ powered-placement-interview-preparation-system/
 ├── database/
 │   └── schema.sql
 ├── screenshots/
-│   ├── pas_1.png
-│   ├── pas_2.png
-│   ├── pas_3.png
-│   ├── pas_4.png
-│   ├── pas_5.png
-│   └── pas_6.png
+│   ├── pas_1.jpeg
+│   ├── pas_2.jpeg
+│   ├── pas_3.jpeg
+│   ├── pas_4.jpeg
+│   ├── pas_5.jpeg
+│   └── pas_6.jpeg
 ├── .gitignore
 └── README.md
 
