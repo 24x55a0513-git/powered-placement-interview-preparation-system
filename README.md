@@ -51,22 +51,22 @@ A full-stack application designed to help students manage placement opportunitie
 ## Screenshots
 
 ### 1. Login Page
-![Login Page](screenshots/pas_1.png)
+![Login Page](screenshots/pas_1.jpeg)
 
 ### 2. Dashboard
-![Dashboard](screenshots/pas_2.png)
+![Dashboard](screenshots/pas_2.jpeg)
 
 ### 3. Job Listings
-![Job Listings](screenshots/pas_3.png)
+![Job Listings](screenshots/pas_3.jpeg)
 
 ### 4. Job Matching
-![Job Matching](screenshots/pas_4.png)
+![Job Matching](screenshots/pas_4.jpeg)
 
 ### 5. Skill Analysis
-![Skill Analysis](screenshots/pas_5.png)
+![Skill Analysis](screenshots/pas_5.jpeg)
 
 ### 6. Interview Preparation
-![Interview Preparation](screenshots/pas_6.png)
+![Interview Preparation](screenshots/pas_6.jpeg)
 
 ## Purpose
 
